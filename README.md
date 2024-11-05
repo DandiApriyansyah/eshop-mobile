@@ -8,7 +8,7 @@ adalah widget yang tidak dapat berubah selama masa hidupnya. Setelah dibuat, *st
 
 ### ***Stateful Widget***
 
-### adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
+adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
 
 Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:  
 ***Stateless Widget***:
@@ -108,16 +108,16 @@ Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:
   Selanjutnya, saya mencoba menjalankan proyek tersebut dengan perintah `flutter run`. Lalu, saya melakukan `git init` pada root folder dan melakukan `add-commit-push` proyek ke repositori `eshop-mobile` di github.  
 * **Membuat tiga tombol sederhana dengan ikon dan teks untuk melihat daftar produk (`Lihat Daftar Produk`), menambah produk (`Tambah Produk`), dan logout (`Logout`)**  
   Sebelum membuat *button* untuk *card*, saya membuat *class* baru bernama `ItemHomepage` yang berisi atribut-atribut dari card yang akan dibuat (pada kasus ini berisi *name* dan *icon*). Pada berkas `menu.dart`, saya menambahkan class di bawah ini di luar class `MyHomePage` dan `InfoCard`.  
-  \`\`\`  
-  `...`  
-   `class ItemHomepage {`  
-       `final String name;`  
-       `final IconData icon;`  
+  ```  
+  ...  
+   class ItemHomepage {  
+       final String name;  
+       final IconData icon;  
     
-       `ItemHomepage(this.name, this.icon);`  
-   `}`  
-   `...`  
-  \`\`\`  
+       ItemHomepage(this.name, this.icon);  
+   }  
+   ... 
+  ```  
   Kemudian, saya membuat *list of* `ItemHomepage` yang berisi tombol-tombol yang ingin saya tambahkan pada *class* `MyHomePage`.   
   \`\`\`  
    `class MyHomePage extends StatelessWidget {`    
