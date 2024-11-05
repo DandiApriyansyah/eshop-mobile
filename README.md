@@ -8,7 +8,7 @@ adalah widget yang tidak dapat berubah selama masa hidupnya. Setelah dibuat, *st
 
 ### ***Stateful Widget***
 
-### adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
+adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
 
 Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:  
 ***Stateless Widget***:
@@ -108,229 +108,236 @@ Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:
   Selanjutnya, saya mencoba menjalankan proyek tersebut dengan perintah `flutter run`. Lalu, saya melakukan `git init` pada root folder dan melakukan `add-commit-push` proyek ke repositori `eshop-mobile` di github.  
 * **Membuat tiga tombol sederhana dengan ikon dan teks untuk melihat daftar produk (`Lihat Daftar Produk`), menambah produk (`Tambah Produk`), dan logout (`Logout`)**  
   Sebelum membuat *button* untuk *card*, saya membuat *class* baru bernama `ItemHomepage` yang berisi atribut-atribut dari card yang akan dibuat (pada kasus ini berisi *name* dan *icon*). Pada berkas `menu.dart`, saya menambahkan class di bawah ini di luar class `MyHomePage` dan `InfoCard`.  
-  \`\`\`  
-  `...`  
-   `class ItemHomepage {`  
-       `final String name;`  
-       `final IconData icon;`  
+  ```  
+  ... 
+   class ItemHomepage {  
+       final String name;  
+       final IconData icon;  
     
-       `ItemHomepage(this.name, this.icon);`  
-   `}`  
-   `...`  
-  \`\`\`  
+       ItemHomepage(this.name, this.icon);  
+   }  
+   ...  
+  ```  
   Kemudian, saya membuat *list of* `ItemHomepage` yang berisi tombol-tombol yang ingin saya tambahkan pada *class* `MyHomePage`.   
-  \`\`\`  
-   `class MyHomePage extends StatelessWidget {`    
-       `...`  
-       `final List<ItemHomepage> items = [`  
-           `ItemHomepage("Lihat Daftar", Icons.mood),`  
-           `ItemHomepage("Tambah Produk", Icons.add),`  
-           `ItemHomepage("Logout", Icons.logout),`  
-       `];`  
-       `...`  
-   `}`  
-  \`\`\`  
+  ```  
+   class MyHomePage extends StatelessWidget {    
+       ...  
+       final List<ItemHomepage> items = [  
+           ItemHomepage("Lihat Daftar", Icons.mood),  
+           ItemHomepage("Tambah Produk", Icons.add),  
+           ItemHomepage("Logout", Icons.logout),  
+       ];  
+       ...  
+   }  
+  ```  
   Selanjutnya, saya membuat *class* `ItemCard` untuk menampilkan tombol-tombol yang sudah saya buat. Untuk saat ini, tombol yang ditekan hanya akan menampilkan *snackbar* yang berisi pesan "Kamu telah menekan tombol \[nama *button*\]".  
-  \`\`\`  
-  `...`  
-  `class ItemCard extends StatelessWidget {`  
-    `// Menampilkan kartu dengan ikon dan nama.`  
+  ```  
+  ...  
+  class ItemCard extends StatelessWidget {  
+    // Menampilkan kartu dengan ikon dan nama.  
     
-    `final ItemHomepage item;`   
+    final ItemHomepage item;   
       
-    `const ItemCard(this.item, {super.key});`   
+    const ItemCard(this.item, {super.key});   
     
-    `// Fungsi untuk memilih warna latar belakang berdasarkan nama tombol.`  
-    `Color getBackgroundColor() {`  
-      `switch (item.name) {`  
-        `case "Lihat Produk":`  
-          `return Colors.blue;`  
-        `case "Tambah Produk":`  
-          `return Colors.green;`  
-        `case "Logout":`  
-          `return Colors.red;`  
-        `default:`  
-          `return Colors.grey; // Warna default jika tidak sesuai dengan opsi di atas.`  
-      `}`  
-    `}`  
+    // Fungsi untuk memilih warna latar belakang berdasarkan nama tombol.  
+    Color getBackgroundColor() {  
+      switch (item.name) {  
+        case "Lihat Produk":  
+          return Colors.blue;  
+        case "Tambah Produk":  
+          return Colors.green;  
+        case "Logout":  
+          return Colors.red;  
+        default:  
+          return Colors.grey; // Warna default jika tidak sesuai dengan opsi di atas.  
+      }  
+    }  
     
-    `@override`  
-    `Widget build(BuildContext context) {`  
-      `return Material(`  
-        `// Menentukan warna latar belakang dari tema aplikasi.`  
-        `color: getBackgroundColor(), // Gunakan warna yang dipilih`  
+    @override  
+    Widget build(BuildContext context) {  
+      return Material(  
+        // Menentukan warna latar belakang dari tema aplikasi.  
+        color: getBackgroundColor(), // Gunakan warna yang dipilih  
           
-        `// Membuat sudut kartu melengkung.`  
-        `borderRadius: BorderRadius.circular(12),`  
+        // Membuat sudut kartu melengkung.  
+        borderRadius: BorderRadius.circular(12),  
           
-        `child: InkWell(`  
-          `// Aksi ketika kartu ditekan.`  
-          `onTap: () {`  
-            `// Menampilkan pesan SnackBar saat kartu ditekan.`  
-            `ScaffoldMessenger.of(context)`  
-              `..hideCurrentSnackBar()`  
-              `..showSnackBar(`  
-                `SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))`  
-              `);`  
-          `},`  
-          `// Container untuk menyimpan Icon dan Text`  
-          `child: Container(`  
-            `padding: const EdgeInsets.all(8),`  
-            `child: Center(`  
-              `child: Column(`  
-                `// Menyusun ikon dan teks di tengah kartu.`  
-                `mainAxisAlignment: MainAxisAlignment.center,`  
-                `children: [`  
-                  `Icon(`  
-                    `item.icon,`  
-                    `color: Colors.white,`  
-                    `size: 30.0,`  
-                  `),`  
-                  `const Padding(padding: EdgeInsets.all(3)),`  
-                  `Text(`  
-                    `item.name,`  
-                    `textAlign: TextAlign.center,`  
-                    `style: const TextStyle(color: Colors.white),`  
-                  `),`  
-                `],`  
-              `),`  
-            `),`  
-          `),`  
-        `),`  
-      `);`  
-    `}`  
+        child: InkWell(  
+          // Aksi ketika kartu ditekan.  
+          onTap: () {  
+            // Menampilkan pesan SnackBar saat kartu ditekan.  
+            ScaffoldMessenger.of(context)  
+              ..hideCurrentSnackBar()  
+              ..showSnackBar(  
+                SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))  
+              );  
+          },  
+          // Container untuk menyimpan Icon dan Text  
+          child: Container(  
+            padding: const EdgeInsets.all(8),  
+            child: Center(  
+              child: Column(  
+                // Menyusun ikon dan teks di tengah kartu.  
+                mainAxisAlignment: MainAxisAlignment.center,  
+                children: [  
+                  Icon(  
+                    item.icon,  
+                    color: Colors.white,  
+                    size: 30.0,  
+                  ),  
+                  const Padding(padding: EdgeInsets.all(3)),  
+                  Text(  
+                    item.name,  
+                    textAlign: TextAlign.center,  
+                    style: const TextStyle(color: Colors.white),  
+                  ),  
+                ],  
+              ),  
+            ),  
+          ),  
+        ),  
+      );  
+    }  
       
-  `}`  
-  \`\`\`  
+  }  
+  ```  
 * **Mengimplementasikan warna-warna yang berbeda untuk setiap tombol (`Lihat Daftar Produk`, `Tambah Produk`, dan `Logout`).**  
   Untuk mengimplementasikan warna yang berbeda pada setiap tombol, saya menambahkan fungsi **`getBackgroundColor()`**. Kemudian, memanggil fungsi tersebut dengan **`color: getBackgroundColor()`** di dalam widget `Material` untuk menerapkan warna yang berbeda pada setiap tombol.  
-  \`\`\`  
-  `class ItemCard extends StatelessWidget {`  
+  ```  
+  class ItemCard extends StatelessWidget {  
     ...   
-    `// Fungsi untuk memilih warna latar belakang berdasarkan nama tombol.`  
-    `Color getBackgroundColor() {`  
-      `switch (item.name) {`  
-        `case "Lihat Produk":`  
-          `return Colors.blue;`  
-        `case "Tambah Produk":`  
-          `return Colors.green;`  
-        `case "Logout":`  
-          `return Colors.red;`  
-        `default:`  
-          `return Colors.grey; // Warna default jika tidak sesuai dengan opsi di atas.`  
-      `}`  
-    `}`  
+    // Fungsi untuk memilih warna latar belakang berdasarkan nama tombol.  
+    Color getBackgroundColor() {  
+      switch (item.name) {  
+        case "Lihat Produk":  
+          return Colors.blue;  
+        case "Tambah Produk":  
+          return Colors.green;  
+        case "Logout":  
+          return Colors.red;  
+        default:  
+          return Colors.grey; // Warna default jika tidak sesuai dengan opsi di atas.  
+      }  
+    }  
     
-    `@override`  
-    `Widget build(BuildContext context) {`  
-      `return Material(`  
-        `color: getBackgroundColor(), // Gunakan warna yang dipilih`  
-        `borderRadius: BorderRadius.circular(12),`  
+    @override  
+    Widget build(BuildContext context) {  
+      return Material(  
+        color: getBackgroundColor(), // Gunakan warna yang dipilih  
+        borderRadius: BorderRadius.circular(12),  
+        ...
+      )
+    }
+  }
   ...  
-  \`\`\`  
+  ```  
 * **Memunculkan `Snackbar`**  
   Untuk memunculkan Snackbar setelah tombol ditekan, saya menambahkan `InkWell` untuk melakukan aksi ketika tombol ditekan:  
-  \`\`\`  
-  `class ItemCard extends StatelessWidget {`  
+  ```  
+  class ItemCard extends StatelessWidget {  
     ...  
-        `child: InkWell(`  
-          `// Aksi ketika kartu ditekan.`  
-          `onTap: () {`  
-            `// Menampilkan pesan SnackBar saat kartu ditekan.`  
-            `ScaffoldMessenger.of(context)`  
-              `..hideCurrentSnackBar()`  
-              `..showSnackBar(`  
-                `SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))`  
-              `);`  
-          `},`  
+        child: InkWell(  
+          // Aksi ketika kartu ditekan.  
+          onTap: () {  
+            // Menampilkan pesan SnackBar saat kartu ditekan.  
+            ScaffoldMessenger.of(context)  
+              ..hideCurrentSnackBar()  
+              ..showSnackBar(  
+                SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))  
+              );  
+          }, 
+        ...
+        )
+  } 
   ...  
-  \`\`\`
+  ```
 
 * ### **Mengintegrasikan InfoCard dan ItemCard untuk Ditampilkan di MyHomePage**
 
   Langkah terakhir adalah mengintegrasikan dan menampilkan seluruh *card* yang saya miliki di `HomePage`. Saya mengubah bagian `Widget build()` pada *class* `MyHomePage`.  
-  \`\`\`  
-  `class MyHomePage extends StatelessWidget {`  
-  `...`  
-      `@override`  
-    `Widget build(BuildContext context) {`  
-      `// Scaffold menyediakan struktur dasar halaman dengan AppBar dan body.`  
-      `return Scaffold(`  
-        `// AppBar adalah bagian atas halaman yang menampilkan judul.`  
-        `appBar: AppBar(`  
-          `// Judul aplikasi "Shopeeta" dengan teks putih dan tebal.`  
-          `title: const Text(`  
-            `'Shopeeta',`  
-            `style: TextStyle(`  
-              `color: Colors.white,`  
-              `fontWeight: FontWeight.bold,`  
-            `),`  
-          `),`  
-          `// Warna latar belakang AppBar diambil dari skema warna tema aplikasi.`  
-          `backgroundColor: Theme.of(context).colorScheme.primary,`  
-        `),`  
-        `// Body halaman dengan padding di sekelilingnya.`  
-        `body: Padding(`  
-          `padding: const EdgeInsets.all(16.0),`  
-          `// Menyusun widget secara vertikal dalam sebuah kolom.`  
-          `child: Column(`  
-            `crossAxisAlignment: CrossAxisAlignment.center,`  
-            `children: [`  
-              `// Row untuk menampilkan 3 InfoCard secara horizontal.`  
-              `Row(`  
-                `mainAxisAlignment: MainAxisAlignment.spaceEvenly,`  
-                `children: [`  
-                  `InfoCard(title: 'NPM', content: npm),`  
-                  `InfoCard(title: 'Name', content: name),`  
-                  `InfoCard(title: 'Class', content: className),`  
-                `],`  
-              `),`  
+  ```  
+  class MyHomePage extends StatelessWidget {  
+  ...  
+      @override  
+    Widget build(BuildContext context) {  
+      // Scaffold menyediakan struktur dasar halaman dengan AppBar dan body.  
+      return Scaffold(  
+        // AppBar adalah bagian atas halaman yang menampilkan judul.  
+        appBar: AppBar(  
+          // Judul aplikasi "Shopeeta" dengan teks putih dan tebal.  
+          title: const Text(  
+            'Shopeeta',  
+            style: TextStyle(  
+              color: Colors.white,  
+              fontWeight: FontWeight.bold,  
+            ),  
+          ),  
+          // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.  
+          backgroundColor: Theme.of(context).colorScheme.primary,  
+        ),  
+        // Body halaman dengan padding di sekelilingnya.  
+        body: Padding(  
+          padding: const EdgeInsets.all(16.0),  
+          // Menyusun widget secara vertikal dalam sebuah kolom.  
+          child: Column(  
+            crossAxisAlignment: CrossAxisAlignment.center,  
+            children: [  
+              // Row untuk menampilkan 3 InfoCard secara horizontal.  
+              Row(  
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,  
+                children: [  
+                  InfoCard(title: 'NPM', content: npm),  
+                  InfoCard(title: 'Name', content: name),  
+                  InfoCard(title: 'Class', content: className),  
+                ],  
+              ),  
     
-              `// Memberikan jarak vertikal 16 unit.`  
-              `const SizedBox(height: 16.0),`  
+              // Memberikan jarak vertikal 16 unit.  
+              const SizedBox(height: 16.0),  
     
-              `// Menempatkan widget berikutnya di tengah halaman.`  
-              `Center(`  
-                `child: Column(`  
-                  `// Menyusun teks dan grid item secara vertikal.`  
+              // Menempatkan widget berikutnya di tengah halaman.  
+              Center(  
+                child: Column(  
+                  // Menyusun teks dan grid item secara vertikal.  
     
-                  `children: [`  
-                    `// Menampilkan teks sambutan dengan gaya tebal dan ukuran 18.`  
-                    `const Padding(`  
-                      `padding: EdgeInsets.only(top: 16.0),`  
-                      `child: Text(`  
-                        `'Welcome to Shopeeta',`  
-                        `style: TextStyle(`  
-                          `fontWeight: FontWeight.bold,`  
-                          `fontSize: 18.0,`  
-                        `),`  
-                      `),`  
-                    `),`  
+                  children: [  
+                    // Menampilkan teks sambutan dengan gaya tebal dan ukuran 18.  
+                    const Padding(  
+                      padding: EdgeInsets.only(top: 16.0),  
+                      child: Text(  
+                        'Welcome to Shopeeta',  
+                        style: TextStyle(  
+                          fontWeight: FontWeight.bold,  
+                          fontSize: 18.0,  
+                        ),  
+                      ),  
+                    ),  
     
-                    `// Grid untuk menampilkan ItemCard dalam bentuk grid 3 kolom.`  
-                    `GridView.count(`  
-                      `primary: true,`  
-                      `padding: const EdgeInsets.all(20),`  
-                      `crossAxisSpacing: 10,`  
-                      `mainAxisSpacing: 10,`  
-                      `crossAxisCount: 3,`  
-                      `// Agar grid menyesuaikan tinggi kontennya.`  
-                      `shrinkWrap: true,`  
+                    // Grid untuk menampilkan ItemCard dalam bentuk grid 3 kolom.  
+                    GridView.count(  
+                      primary: true,  
+                      padding: const EdgeInsets.all(20),  
+                      crossAxisSpacing: 10,  
+                      mainAxisSpacing: 10,  
+                      crossAxisCount: 3,  
+                      // Agar grid menyesuaikan tinggi kontennya.  
+                      shrinkWrap: true,  
     
-                      `// Menampilkan ItemCard untuk setiap item dalam list items.`  
-                      `children: items.map((ItemHomepage item) {`  
-                        `return ItemCard(item);`  
-                      `}).toList(),`  
-                    `),`  
-                  `],`  
-                `),`  
-              `),`  
-            `],`  
-          `),`  
-        `),`  
-      `);`  
-    `}`  
-  `}`
+                      // Menampilkan ItemCard untuk setiap item dalam list items.  
+                      children: items.map((ItemHomepage item) {  
+                        return ItemCard(item);  
+                      }).toList(),  
+                    ),  
+                  ],  
+                ),  
+              ),  
+            ],  
+          ),  
+        ),  
+      );  
+    }  
+  }
 
-`...`  
-\`\`\`
+...  
+```
