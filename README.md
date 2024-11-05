@@ -339,6 +339,5 @@ Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:
       );  
     }  
   }
-
 ...  
 ```
