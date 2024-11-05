@@ -9,6 +9,7 @@ adalah widget yang tidak dapat berubah selama masa hidupnya. Setelah dibuat, *st
 ### ***Stateful Widget***
 
 adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
+adalah widget yang memiliki *state* internal yang dapat berubah selama masa hidupnya. Widget ini dapat diperbarui, dan perubahan pada *state* ini akan menyebabkan widget direbuild (dibuat ulang) untuk mencerminkan perubahan tersebut. *State* ini cocok untuk elemen-elemen yang membutuhkan perubahan data atau tampilan secara dinamis, seperti penghitung (counter), kolom input teks, atau elemen yang merespons interaksi pengguna (misalnya, ketika tombol ditekan atau ketika data dari API diperbarui).
 
 Perbedaan antara *Stateless Widget* dan *Stateful Widget* adalah:  
 ***Stateless Widget***:
